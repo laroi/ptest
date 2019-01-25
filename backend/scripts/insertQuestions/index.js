@@ -1,0 +1,1 @@
+require('./insertQuestions.js')();

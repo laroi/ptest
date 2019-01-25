@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "test": "mocha",
+    "test": "mocha './**/*.tests.js'",
     "cover": "istanbul cover node_modules/.bin/_mocha -u exports -R spec test/**/*"
   },
   "keywords": [],
