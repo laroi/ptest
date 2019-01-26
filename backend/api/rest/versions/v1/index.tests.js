@@ -1,6 +1,6 @@
 'use strict';
 
-const app = require('../server');
+const app = require('../../../../server');
 const chai = require('chai');
 const supertest = require('supertest');
 const request = supertest(app);
@@ -8,11 +8,12 @@ const agent = supertest.agent(app);
 const expect = chai.expect;
 
 describe('API integration tests', () => {
-    it('Should greet you', (done) => {
-        agent.get('/')
+    it('List Questions', (done) => {
+        agent.get('/api/v1/questions')
             .end((err, res) => {
                 expect(res.statusCode).to.equal(200);
-                expect(res.body).to.deep.include({ msg: 'Welcome to Turing' });
+                expect(res.body).to.be.an('array');
+                expect(res.body).to.not.to.be.empty;
                 done();
             });
     });
