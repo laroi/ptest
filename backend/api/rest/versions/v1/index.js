@@ -10,7 +10,8 @@ const test = (req, res) => {
 };
 
 const getQuestions = async (req, res) => {
-    try {
+    try
+    {
         res.status(200).send(await db.collection('questions').find().toArray());
     }
     catch (e) {
@@ -18,10 +19,37 @@ const getQuestions = async (req, res) => {
         res.status(error.status).send({ name: error.name, type: error.type });
     }
 };
+const acceptAnswers = async (req, res) => {
+    let answers = req.body.answers || {};
+    let answeredQuestions = Object.keys(answers);
+    if (answeredQuestions.length > 0) {
+        let questions = await db.collection('questions').find({}, { projection: { _id: 1 } }).toArray();
+        questions = questions.map(_ => _._id.toString());
+        let isSubset = answeredQuestions.every(_ => questions.indexOf(_) > -1);
+        if (isSubset) {
+            try
+            {
+                let success = await db.collection('answers').insertOne({ answers: answers, createdAt: new Date().toISOString() });
+                res.status(201).send({ _id: success.insertedId });
+            }
+            catch (e) {
+                let error = new ApiError(e);
+                res.status(error.status).send({ name: error.name, type: error.type });
+            }
+        } else {
+            let error = new InvalidParamError();
+            res.status(error.status).send({ name: error.name, type: error.type });
+        }
+    } else {
+        let error = new BadRequestError();
+        res.status(error.status).send({ name: error.name, type: error.type });
+    }
+};
 module.exports = function registerActions (router, database) {
     db = database;
     router
         .get('/test', test)
-        .get('/questions', getQuestions);
+        .get('/questions', getQuestions)
+        .post('/answers', acceptAnswers);
     return router;
 };

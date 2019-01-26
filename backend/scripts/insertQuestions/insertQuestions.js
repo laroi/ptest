@@ -1,10 +1,9 @@
 const MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
-const { host, port, database } = require('../../config').mongo;
 const questions = JSON.parse(fs.readFileSync(__dirname + '/questions.json', { 'encoding': 'utf8' }));
 let client;
-let insert = () => {
-    return MongoClient.connect(`mongodb://${host}:${port}`)
+let insert = (uri, database) => {
+    return MongoClient.connect(uri)
         .then((connection) => {
             client = connection;
             return client.db(database).collection('questions').insertMany(questions, forceServerObjectId = true);

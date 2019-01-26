@@ -1,8 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
-const { host, port, database } = require('../config').mongo;
-module.exports = () => {
+module.exports = (uri, database) => {
     return new Promise((resolve, reject) => {
-        MongoClient.connect(`mongodb://${host}:${port}`)
+        MongoClient.connect(uri)
             .then((client) => {
                 resolve(client.db(database));
             })
