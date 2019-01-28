@@ -8,24 +8,17 @@ const supertest = require('supertest');
 const request = supertest(app);
 const agent = supertest.agent(app);
 const expect = chai.expect;
+const fetch = require('jest-fetch-mock');
 let script = require('../scripts/insertQuestions/insertQuestions.js');
 let qId;
 describe('API integration tests', () => {
-    after(function (done) {
+    afterAll(function (done) {
         app.db.dropDatabase(function (err) {
             if (err) {
                 return done(err);
             }
             done();
         });
-    });
-    it('Should greet you', (done) => {
-        agent.get('/')
-            .end((err, res) => {
-                expect(res.statusCode).to.equal(200);
-                expect(res.body).to.deep.include({ msg: 'Welcome to Turing' });
-                done();
-            });
     });
     it('Inserts questions in database', async function () {
         try {
@@ -43,7 +36,6 @@ describe('API integration tests', () => {
                 expect(res.body).to.be.an('array');
                 expect(res.body).to.not.to.be.empty;
                 qId = res.body[0]._id;
-                console.log(qId);
                 done();
             });
     });
@@ -55,6 +47,31 @@ describe('API integration tests', () => {
             .end((err, res) => {
                 expect(res.statusCode).to.equal(201);
                 expect(res.body).to.have.property('_id');
+                done();
+            });
+    });
+    it('should return bad request on posting answer', (done) => {                
+        agent.post('/api/v1/answers')
+            .send({})
+            .end((err, res) => {
+                expect(res.statusCode).to.equal(400);
+                done();
+            });
+    });
+    it('should return Internal Server Error on posting answe', async () => {
+        fetch.mockReject(new Error('An unexpected error occurred. Please try again later'));
+        try {
+            await agent.post('/api/v1/answers', {data: {}}); // using jest with testContext
+        } catch (error) {
+            expect(error.message).toBe('An unexpected error occurred. Please try again later');
+        }
+    });
+    it('List Answers', (done) => {
+        agent.get('/api/v1/answers')
+            .end((err, res) => {
+                expect(res.statusCode).to.equal(200);
+                expect(res.body).to.be.an('array');
+                expect(res.body).to.not.to.be.empty;
                 done();
             });
     });

@@ -23,21 +23,13 @@ const acceptAnswers = async (req, res) => {
     let answers = req.body.answers || {};
     let answeredQuestions = Object.keys(answers);
     if (answeredQuestions.length > 0) {
-        let questions = await db.collection('questions').find({}, { projection: { _id: 1 } }).toArray();
-        questions = questions.map(_ => _._id.toString());
-        let isSubset = answeredQuestions.every(_ => questions.indexOf(_) > -1);
-        if (isSubset) {
-            try
-            {
-                let success = await db.collection('answers').insertOne({ answers: answers, createdAt: new Date().toISOString() });
-                res.status(201).send({ _id: success.insertedId });
-            }
-            catch (e) {
-                let error = new ApiError(e);
-                res.status(error.status).send({ name: error.name, type: error.type });
-            }
-        } else {
-            let error = new InvalidParamError();
+        try
+        {
+            let success = await db.collection('answers').insertOne({ answers: answers, createdAt: new Date().toISOString() });
+            res.status(201).send({ _id: success.insertedId });
+        }
+        catch (e) {
+            let error = new ApiError(e);
             res.status(error.status).send({ name: error.name, type: error.type });
         }
     } else {
@@ -51,7 +43,6 @@ const getAnswers = async (req, res) => {
         res.status(200).send(await db.collection('answers').find().toArray())
     }
     catch (e) {
-        console.log(e);
         let error = new ApiError(e);
         res.status(error.status).send({ name: error.name, type: error.type });   
     }

@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "/\\.npm/"
+    ]
+  },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
     "test": "mocha './**/*.tests.js'",
-    "cover": "istanbul cover node_modules/.bin/_mocha -u exports -R spec test/**/*"
+    "cover": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +32,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "istanbul": "^0.4.5",
+    "jest": "^24.0.0",
     "mocha": "^5.2.0",
     "mongodb-memory-server": "^3.0.0",
     "supertest": "^3.4.2"
