@@ -1,0 +1,42 @@
+.topbar {
+    float:right;
+}
+.type-head {
+    margin: 5px 10px 25px 10px;
+    padding: 5px;
+}
+.type-body {
+    margin-left: 50px;
+    padding-left: 10px;
+}
+.question {
+    padding-bottom:10px;
+}
+.options {
+    padding-bottom:25px;
+}
+
+.answer-ind-cont {
+    overflow: hidden;
+    margin-left: 10px;
+    background-color: beige;
+    padding: 8px;
+    border-bottom: 1px solid black;
+}
+.ans-title {
+    float:left;
+    width:80%;
+}
+.ans-created-at {
+    float:left;
+    width:20%;
+}
+.topbar {
+    overflow:hidden;
+}
+#back {
+    display:none;
+}
+#show-answers {
+    display:none;
+}

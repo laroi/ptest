@@ -45,11 +45,23 @@ const acceptAnswers = async (req, res) => {
         res.status(error.status).send({ name: error.name, type: error.type });
     }
 };
+
+const getAnswers = async (req, res) => {
+    try {
+        res.status(200).send(await db.collection('answers').find().toArray())
+    }
+    catch (e) {
+        console.log(e);
+        let error = new ApiError(e);
+        res.status(error.status).send({ name: error.name, type: error.type });   
+    }
+};
 module.exports = function registerActions (router, database) {
     db = database;
     router
         .get('/test', test)
         .get('/questions', getQuestions)
+        .get('/answers', getAnswers)
         .post('/answers', acceptAnswers);
     return router;
 };

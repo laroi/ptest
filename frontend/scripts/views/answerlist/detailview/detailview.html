@@ -1,0 +1,21 @@
+<div class="modal" id="answer-pop" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Answer {{data._id}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         {{#each data.answer}}
+            <div class="question" id={{this._id}} type={{this.type}}>{{this.question}}</div>
+            {{#getQuestionTypeForAnswer this.type this.options this.selection}} {{/getQuestionTypeForAnswer}}
+        {{/each}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

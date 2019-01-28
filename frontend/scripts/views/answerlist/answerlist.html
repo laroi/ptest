@@ -1,0 +1,8 @@
+
+    {{#each data}}
+        <div class="answer-ind-cont col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id={{this._id}}>
+            <div class="ans-title">{{this._id}}</div>
+            <div class="ans-created-at">{{#getDate this.createdAt}} {{/getDate}}</div>
+        </div>
+    {{/each}}
+
