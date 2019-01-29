@@ -1,3 +1,4 @@
+/* global define */
 define([], () => {
     let answer = function (inAnswer) {
         let ansObject = {};
@@ -15,6 +16,6 @@ define([], () => {
         }
         ansObject.selection = inAnswer.selection;
         return ansObject;
-    }
+    };
     return answer;
-})
+});

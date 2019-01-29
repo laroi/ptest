@@ -12,6 +12,9 @@ let init = (url, db) => {
             app.get('/', (req, res) => res.status(200).send({ msg: 'Welcome to Turing' }));
             app.use('/api', require('./api/rest/router')(app));
             app.listen(port, () => console.log(`Turing is listening on port ${port}!`));
+        })
+        .catch((err) => {
+            console.error('Could not connect to database', err);
         });
     return app;
 };

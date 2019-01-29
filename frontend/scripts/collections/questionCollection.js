@@ -1,9 +1,8 @@
-
+/* global define */
 define(['../controllers/requestController', '../models/question'], (request, Question) => {
     let questions = () => {
         let getAllQuestions = () => {
             return new Promise((resolve, reject) => {
-                //let allQuestions = [];
                 let allQuestions = {};
                 request.get('/api/v1/questions')
                     .then((data) => {
@@ -14,13 +13,13 @@ define(['../controllers/requestController', '../models/question'], (request, Que
                                 allQuestions[datum.category] = [];
                                 allQuestions[datum.category].push(new Question(datum));
                             }
-                        })
+                        });
                         resolve(allQuestions);
                     })
                     .catch((err) => {
                         reject(err);
-                    })
-            })
+                    });
+            });
         };
 
         /* The following two functions were written out of confusion as I did not read the description completed and jumped to assumption. Travesal is not a requirement
@@ -103,14 +102,14 @@ define(['../controllers/requestController', '../models/question'], (request, Que
             }
         }; */
         let getQuestionById = (id, allQs) => {
-            return allQs[allQs.findIndex(_=> _._id === id)]
-        }
+            return allQs[allQs.findIndex(_ => _._id === id)];
+        };
         return {
-            getAllQuestions : getAllQuestions,
-//            getNextQuestion: getNextQuestion,
-//            getPrevQuestion: getPrevQuestion,
+            getAllQuestions: getAllQuestions,
+            // getNextQuestion: getNextQuestion,
+            // getPrevQuestion: getPrevQuestion,
             getQuestionById: getQuestionById
-        }
-    }
+        };
+    };
     return questions();
-})
+});

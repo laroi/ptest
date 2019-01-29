@@ -26,12 +26,15 @@ describe('API integration tests', () => {
             expect(data).to.equal(25);
         }
         catch (e) {
-            console.log('error', e)
+            console.log('error', e);
         }
     });
     it('List Questions', (done) => {
         agent.get('/api/v1/questions')
             .end((err, res) => {
+                if (err) {
+                    console.error(err);
+                }
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.an('array');
                 expect(res.body).to.not.to.be.empty;
@@ -45,15 +48,21 @@ describe('API integration tests', () => {
         agent.post('/api/v1/answers')
             .send(postObject)
             .end((err, res) => {
+                if (err) {
+                    console.error(err);
+                }
                 expect(res.statusCode).to.equal(201);
                 expect(res.body).to.have.property('_id');
                 done();
             });
     });
-    it('should return bad request on posting answer', (done) => {                
+    it('should return bad request on posting answer', (done) => {
         agent.post('/api/v1/answers')
             .send({})
             .end((err, res) => {
+                if (err) {
+                    console.error(err);
+                }
                 expect(res.statusCode).to.equal(400);
                 done();
             });
@@ -61,7 +70,7 @@ describe('API integration tests', () => {
     it('should return Internal Server Error on posting answe', async () => {
         fetch.mockReject(new Error('An unexpected error occurred. Please try again later'));
         try {
-            await agent.post('/api/v1/answers', {data: {}}); // using jest with testContext
+            await agent.post('/api/v1/answers', { data: {} }); // using jest with testContext
         } catch (error) {
             expect(error.message).toBe('An unexpected error occurred. Please try again later');
         }
@@ -69,6 +78,9 @@ describe('API integration tests', () => {
     it('List Answers', (done) => {
         agent.get('/api/v1/answers')
             .end((err, res) => {
+                if (err) {
+                    console.error(err);
+                }
                 expect(res.statusCode).to.equal(200);
                 expect(res.body).to.be.an('array');
                 expect(res.body).to.not.to.be.empty;

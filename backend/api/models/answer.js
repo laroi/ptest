@@ -1,5 +1,9 @@
 const Joi = require('joi');
 const Answer = Joi.object({
-    questionId: Joi.string().required(),
-    answer: Joi.string().required()
+    answer: Joi.array().items(Joi.object({
+        question: Joi.string(),
+        category: Joi.string(),
+        type: Joi.string(),
+        selection: Joi.string()
+    }))
 });

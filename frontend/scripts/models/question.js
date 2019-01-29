@@ -1,3 +1,4 @@
+/* global define */
 define([], () => {
     let question = function (inQuestion) {
         let questObject = {};
@@ -12,6 +13,6 @@ define([], () => {
             questObject.question_type = inQuestion.question_type;
         }
         return questObject;
-    }
+    };
     return question;
-})
+});

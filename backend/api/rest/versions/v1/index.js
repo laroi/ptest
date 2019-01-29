@@ -1,9 +1,10 @@
-const contactSchema = require(__dirname + '/../../../models/answer.js');
-const { validate } = require(__dirname + '/../../../../lib/validate');
+const path = require('path');
+const answserSchema = require(path.join(__dirname, '/../../../models/answer.js'));
+const { validate } = require(path.join(__dirname, '/../../../../lib/validate'));
 const { BadRequestError,
     InvalidParamError,
     NotFoundError,
-    ApiError } = require(__dirname + '/../../../../lib/validate/errors.js');
+    ApiError } = require(path.join(__dirname, '/../../../../lib/validate/errors.js'));
 let db;
 const test = (req, res) => {
     res.status(200).send({ 'status': 'ok' });
@@ -40,11 +41,11 @@ const acceptAnswers = async (req, res) => {
 
 const getAnswers = async (req, res) => {
     try {
-        res.status(200).send(await db.collection('answers').find().toArray())
+        res.status(200).send(await db.collection('answers').find().toArray());
     }
     catch (e) {
         let error = new ApiError(e);
-        res.status(error.status).send({ name: error.name, type: error.type });   
+        res.status(error.status).send({ name: error.name, type: error.type });
     }
 };
 module.exports = function registerActions (router, database) {

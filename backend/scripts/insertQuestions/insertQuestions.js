@@ -1,11 +1,12 @@
 const MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
-const questions = JSON.parse(fs.readFileSync(__dirname + '/questions.json', { 'encoding': 'utf8' }));
+const path = require('path');
+const questions = JSON.parse(fs.readFileSync(path.join(__dirname, '/questions.json'), { 'encoding': 'utf8' }));
 let client;
 let insert = (uri, database) => {
     return MongoClient.connect(uri)
         .then((connection) => {
-            client = connection;
+            client = connection
             return client.db(database).collection('questions').insertMany(questions, forceServerObjectId = true);
         })
         .then((data) => {

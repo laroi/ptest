@@ -2,8 +2,6 @@ const {
     MONGO_HOST,
     MONGO_PORT,
     MONGO_DB,
-    MONGO_USER,
-    MONGO_PW,
     NODE_ENV
 } = process.env;
 module.exports = {
