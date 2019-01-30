@@ -17,7 +17,6 @@ describe('API integration tests', () => {
             if (err) {
                 return done(err);
             }
-            done();
         });
     });
     it('Inserts questions in database', async function () {
@@ -87,4 +86,12 @@ describe('API integration tests', () => {
                 done();
             });
     });
+	it('should generate a path for checking service status', async () => {
+        const response = await agent.get('/api/status');
+        expect(response.status).to.equal(200);
+        expect(response.body).to.deep.equal({ status: 'ok' });
+
+    });
+
 });
+

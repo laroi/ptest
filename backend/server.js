@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 let init = (url, db) => {
     dbConnect(url, db)
         .then((db) => {
+            // Db object will be used in router
             app.db = db;
             app.get('/', (req, res) => res.status(200).send({ msg: 'Welcome to Turing' }));
             app.use('/api', require('./api/rest/router')(app));

@@ -1,7 +1,7 @@
 
     {{#each data}}
         <div class="type-wrapper col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id = {{@key}}>
-            <div class="type-head"> {{@key}}</div>
+            <div class="type-head"> {{#titlify @key}} {{/titlify}}</div>
                 <div class="type-body">
                 {{#each this}}
                         <div class="question" id={{this._id}} type={{this.question_type.type}}>{{this.question}}</div>

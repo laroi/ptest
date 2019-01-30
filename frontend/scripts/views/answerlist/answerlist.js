@@ -1,4 +1,4 @@
-/* global $ Handlebars define */
+/* global $ Handlebars toastr define */
 define(['../../collections/answerCollection', 'text!./answerlist.html', './detailview/detailview'], (answers, source, ansDetailView) => {
     Handlebars.registerHelper('getDate', (date) => {
         date = new Date(date);
@@ -17,6 +17,9 @@ define(['../../collections/answerCollection', 'text!./answerlist.html', './detai
             return new Promise((resolve, reject) => {
                 answers.getAllAnswers()
                     .then((answ) => {
+                        if (Array.isArray(answ) && answ.length <= 0) {
+                            toastr.warning('There are no answers submitted');
+                        }
                         let html = template({ data: answ });
                         $('#content').empty().html(html);
                         $('#back').show();

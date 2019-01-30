@@ -1,5 +1,6 @@
-/* global $ Handlebars define */
+/* global $ Handlebars toastr define */
 define(['../../collections/questionCollection', '../../collections/answerCollection', 'text!./landing.html', 'text!./question.html'], (questions, answer, source, indQuestionSource) => {
+    // Helper function to get HTML for options
     Handlebars.registerHelper('getQuestionType', function (type, id) {
         let html = '<div class="options">';
         if (type.type === 'single_choice' || type.type === 'single_choice_conditional') {
@@ -8,11 +9,16 @@ define(['../../collections/questionCollection', '../../collections/answerCollect
             }
         }
         else if (type.type === 'number_range') {
-            html += '<input type="range" name="volume" min="' + type.range.from + '" max="' + type.range.to + '">';
+            const defaultValue = Math.floor((parseInt(type.range.to, 10) - parseInt(type.range.from, 10))/3)
+            html += '<input type="range" value="' + defaultValue + '" name="volume" min="' + type.range.from + '" max="' + type.range.to + '"> <div class="input-val">' + defaultValue + '</div>';
         }
         html += '</div>';
         return html;
     });
+    Handlebars.registerHelper('titlify', (val)=> {
+        return val.replace(/_/gi, ' ');
+    })
+    // Helper function to match conditions
     let funcs = {
         exactEquals: (selection, val) => {
             return selection === val;
@@ -21,6 +27,7 @@ define(['../../collections/questionCollection', '../../collections/answerCollect
     let getGuid = () => {
         return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
     };
+    // Handle the click on options to create answer array
     let handleSelectionClick = (quests, allAnswers) => {
         return function (e) {
             let selection = $(this).val();
@@ -32,6 +39,7 @@ define(['../../collections/questionCollection', '../../collections/answerCollect
             } else if (e.target.type === 'range') {
                 id = $(e.target).parent().prev().attr('id');
                 category = $(e.target).parent().parent().parent().attr('id');
+                $('.input-val').empty().html(selection);
             }
             let arr = quests[category];
             let q = arr[arr.findIndex(_ => _._id === id)];
@@ -45,12 +53,14 @@ define(['../../collections/questionCollection', '../../collections/answerCollect
                 let condition = q.question_type.condition;
                 let predicate = condition.predicate;
                 let func = Object.keys(predicate)[0];
-                // Normally I don't use eval, but the data looked like I should ?
+                // Normally I don't use evil, but the data looked like I should ?
                 let isChain = funcs[func](eval('`' + predicate[func][0] + '`'), predicate[func][1]);
+                // Single choice condition and condition is positive? we got more things to do
                 if (isChain) {
                     condition.if_positive._id = getGuid();
                     arr.push(condition.if_positive);
                     $(e.target).parent().parent().after(indQuestionTemplate({ data: condition.if_positive }));
+                    // Binding the same function for newly created element
                     $('input[type="range"]').off('input').on('input', handleSelectionClick(quests, allAnswers));
                 } else if ($(e.target).parent().parent().next().hasClass('follow')) {
                     $(e.target).parent().parent().next().remove();
@@ -70,8 +80,11 @@ define(['../../collections/questionCollection', '../../collections/answerCollect
                         let submitHandler = () => {
                             answer.submitAnswer(allAnswers)
                                 .then((response) => {
-                                    console.log('Submitted', response);
-                                });
+                                    toastr.success('Your answers are submitted !', 'Ptest')
+                                })
+                                .catch((e) => {
+                                    toastr.error('There was some problem while submitting your answers', 'Ptest')
+                                })
                         };
                         let html = template({ data: quests });
                         $('#content').empty().html(html);

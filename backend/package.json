@@ -10,8 +10,8 @@
   },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "test": "mocha './**/*.tests.js'",
-    "cover": "jest --coverage"
+    "start": "node index.js",
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",

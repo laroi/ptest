@@ -13,7 +13,7 @@ module.exports = function validate (req, schema, opts = {}) {
     }, opts);
     for (const item of ['body', 'query', 'params']) {
         if (!schema[item]) continue;
-        const toValidateObj = item === 'body' ? req.request.body : req[item];
+        const toValidateObj = item === 'body' ? req.body : req[item];
         const result = Joi.validate(toValidateObj, schema[item], options);
         if (result.error) {
             const detail = result.error.details[0];

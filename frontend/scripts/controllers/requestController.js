@@ -1,7 +1,7 @@
 /* global fetch define */
 define([], () => {
-    let get,
-        post;
+    const get;
+    const post;
     get = (url) => {
         return fetch(url)
             .then((response) => {
@@ -22,8 +22,5 @@ define([], () => {
             body: JSON.stringify(data) // body data type must match 'Content-Type' header
         });
     };
-    return {
-        get: get,
-        post: post
-    };
+    return { get, post };
 });

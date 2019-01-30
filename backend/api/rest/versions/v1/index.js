@@ -1,6 +1,6 @@
 const path = require('path');
-const answserSchema = require(path.join(__dirname, '/../../../models/answer.js'));
-const { validate } = require(path.join(__dirname, '/../../../../lib/validate'));
+const answerSchema = require(path.join(__dirname, '/../../../models/answer.js'));
+const validate = require(path.join(__dirname, '/../../../../lib/validate/index.js'));
 const { BadRequestError,
     InvalidParamError,
     NotFoundError,
@@ -23,6 +23,7 @@ const getQuestions = async (req, res) => {
 const acceptAnswers = async (req, res) => {
     let answers = req.body.answers || {};
     let answeredQuestions = Object.keys(answers);
+    validate(req, { body: answerSchema });
     if (answeredQuestions.length > 0) {
         try
         {

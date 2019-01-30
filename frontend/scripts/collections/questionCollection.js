@@ -48,16 +48,12 @@ define(['../controllers/requestController', '../models/question'], (request, Que
                 } else {
                     if (allQs.length > curIndex) {
                         return allQs[curIndex+1]
-                    } else {
-                        return false;
                     }
                 }
             } else {
                 if (allQs.length > curIndex) {
                     console.log(curIndex);
                     return allQs[curIndex+1]
-                } else {
-                    return false;
                 }
             }
         }
@@ -88,16 +84,12 @@ define(['../controllers/requestController', '../models/question'], (request, Que
                 } else {
                     if (allQs.length > curIndex) {
                         return currentItem;
-                    } else {
-                        return false;
                     }
                 }
             } else {
                 if (curIndex > 0) {
                     console.log(curIndex);
                     return allQs[curIndex - 1]
-                } else {
-                    return false;
                 }
             }
         }; */

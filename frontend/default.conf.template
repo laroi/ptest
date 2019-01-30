@@ -1,0 +1,12 @@
+server {
+	listen 80;
+	root /var/www;
+	index index.html;
+    location /api/ {
+        proxy_pass http://${API_HOST}:${API_PORT}/api/;
+        proxy_set_header Host $http_post;
+    }
+	location / {
+		try_files $uri $uri/ /index.html =404;
+	}
+}
