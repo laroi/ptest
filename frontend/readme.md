@@ -22,7 +22,7 @@ Frontend requires [Nginx]
 * Configure nginx web server reverse proxy for backend
 
 ### Test
-Tests will be available in path `/tests/test.html`
+Tests are be available in path `/tests/test.html`
 
 
    [Mocha]: <https://mochajs.org/>
@@ -33,5 +33,5 @@ Tests will be available in path `/tests/test.html`
    [jQuery]: <http://jquery.com>
    [Toastr]: <https://github.com/CodeSeven/toastr>
    [Nginx]: <https://www.nginx.com/>
- 
+
 

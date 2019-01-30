@@ -6,8 +6,8 @@ A Backend application written in Nodejs to serve the frontend
 Backend uses the following technologies:
 
 * [Node.js] - awesome server Run Time Engine with evented I/O for backend
-* [Express] - fast Node.js network app framework [@tjholowaychuk]
-* [Mocha] - Testing framework (Hey! tests are important)
+* [Express] - fast Node.js network app framework
+* [Mocha] - Testing framework
 * [Jest] - Code coverage tool
 * [lodash] - A Javascript Utility Library
 * [Joi] - We're doing schemaless mongodb, so validation right on the start
@@ -17,7 +17,12 @@ Backend uses the following technologies:
 
 ### Installation
 
-Ptest requires [Node.js] And [Mongodb] and the questions. All the parameters are configurable via enviroment variables
+Ptest requires [Node.js] And [Mongodb] and the questions. All the parameters are configurable via follwing enviroment variables
+
+* PORT : Port to which the backend application should listen to
+* MONGO_HOST : IP where mongo db is availbale
+* MONGO_PORT: Port to which Mongodb listen to
+* MONGO_DB: Name of the Database that should be used
 
 
 ```sh
