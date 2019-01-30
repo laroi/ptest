@@ -5,8 +5,8 @@ A Backend application written in Nodejs to serve the frontend
 
 Backend uses the following technologies:
 
-* [Node.js] - awesome server Run Time Engine with evented I/O for backend
-* [Express] - fast Node.js network app framework
+* [Node.js] - Awesome server Run Time Engine with evented I/O for backend
+* [Express] - Fast Node.js network app framework
 * [Mocha] - Testing framework
 * [Jest] - Code coverage tool
 * [lodash] - A Javascript Utility Library

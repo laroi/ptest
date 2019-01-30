@@ -10,7 +10,7 @@ Ptest is a small application  which asks you some basic questions and collection
 
 ### Installation
 
-Ptest requires [Docker] And [Docker-compose] (and only those ;)).  You can find install install instructions [here](https://www.digitalocean.com/comamunity/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04) and [here](https://docs.docker.com/compose/install/)
+Ptest requires [Docker] And [Docker-compose] (and only those ;)).  You can find install instructions [here](https://www.digitalocean.com/comamunity/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04) and [here](https://docs.docker.com/compose/install/)
 
 After that, you will need to configure a couple of parameters. Open docker-compose.yml
 - Update **API_HOST** to IP of your machine
