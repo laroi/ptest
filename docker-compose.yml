@@ -2,8 +2,10 @@ version : "2"
 services:
     frontend:
         build: frontend
+        image: frontend
         ports:
             - "8085:80"
+        container_name: Engelbart
         networks:
             - backend
         environment:
@@ -13,16 +15,19 @@ services:
         image: mongo
         networks:
             - backend
+        container_name: Hopper
         ports:
             - "27018:27017"
     backend:
         build: backend
+        image: backend
         ports:
             - "3000:3000"
         networks:
             - backend
         links:
             - db
+        container_name: Ritchie
         depends_on:
             - db
         restart: always
