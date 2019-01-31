@@ -1,8 +1,6 @@
 /* global fetch define */
 define([], () => {
-    const get;
-    const post;
-    get = (url) => {
+    const get = (url) => {
         return fetch(url)
             .then((response) => {
                 return response.json();
@@ -11,7 +9,7 @@ define([], () => {
                 return response;
             });
     };
-    post = (url, data) => {
+    const post = (url, data) => {
         return fetch(url, {
             method: 'POST',
             mode: 'cors',
