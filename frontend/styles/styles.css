@@ -36,6 +36,10 @@
 }
 .topbar {
     overflow:hidden;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    z-index: 10;
 }
 #back {
     display:none;
@@ -57,4 +61,7 @@ input[type=radio] {
 }
 .options>div {
     margin-bottom:5px;
+}
+#content  {
+    margin-top:45px;
 }
