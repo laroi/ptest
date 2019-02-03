@@ -8,8 +8,10 @@ COPY api /opt/app/api/
 COPY lib /opt/app/lib/
 COPY mongo /opt/app/mongo/
 COPY scripts /opt/app/scripts/
+RUN ["chmod", "+x", "/opt/app/entrypoint.sh"]
 
 RUN npm install --only=prod
 EXPOSE 3000
-cmd ["node", "index.js"]
+ENTRYPOINT /opt/app/entrypoint.sh
+
 

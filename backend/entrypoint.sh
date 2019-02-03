@@ -1,2 +1,3 @@
-node scripts/insertQuestions/index.js
 node index.js
+node scripts/insertQuestions/index.js
+
